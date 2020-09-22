@@ -1,0 +1,71 @@
+package com.gofluent.shoppingbasket.models;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "BASKET")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+public class Basket {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+//	private Customer customer;
+
+	@Column(name = "TOTAL_PRICE")
+	private double totalPrice;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Item> items = new HashSet<>();
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
+
+
+	
+	public double getTotalPrice() {
+		for (Item item : items) {
+			this.totalPrice += item.getItemPrice();
+		}
+		return this.totalPrice;
+	}
+
+	public Set<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Item> items) {
+		this.items = items;
+	}
+	
+}

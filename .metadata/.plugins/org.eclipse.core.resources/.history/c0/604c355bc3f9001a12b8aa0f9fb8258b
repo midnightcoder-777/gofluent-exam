@@ -1,0 +1,9 @@
+package com.gofluent.shoppingbaskets.model;
+
+public class Basket {
+	
+	private int id;
+	private String customer;
+	private 
+
+}

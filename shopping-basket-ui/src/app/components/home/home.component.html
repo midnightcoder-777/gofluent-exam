@@ -1,0 +1,86 @@
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+
+<header class="header">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <a class="navbar-brand" href="#"><p class="ab">GoFluent Basket</p></a>
+    </nav>
+  </div>
+</header>
+
+<div class="container">
+  <h4>ITEMS</h4>
+  <hr>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">ITEM NAME</th>
+      <th scope="col">DESCRIPTION</th>
+      <th scope="col">PRICE</th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items; index as i">
+      <td> {{ item.id }} </td>
+      <td> {{ item.itemName }} </td>
+      <td> {{ item.itemDescription }} </td>
+      <td>{{ item.itemPrice | number }}</td>
+      <td>
+        <!-- <button type="button" name="add-to-cart" (click)="addToBasket(item)">Add</button> -->
+        <button type="button" class="btn btn-success" (click)="addToBasket(item)">
+            <span class="glyphicon glyphicon-add"></span> add to cart
+        </button>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <br>
+  <h4>BASKET</h4>
+  <hr>
+    <div class="row">
+        <div class="col-sm-12 col-md-10 col-md-offset-1">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Item name</th>
+                        <th>Description</th>
+                        <th class="text-center">Price</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of basket.items; index as i">
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                            <div class="media-body">
+                                <h4 class="media-heading"><a href="#">{{item.itemName}}</a></h4>
+                                <h5 class="media-heading"> Desc <a href="#">{{item.itemDescription}}</a></h5>
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>₱{{item.itemPrice}}</strong></td>
+                        <td class="col-sm-1 col-md-1">
+                        <button type="button" class="btn btn-danger" (click)="removeToBasket(basket,item.id)">
+                            <span class="glyphicon glyphicon-remove"></span> Remove
+                        </button></td>
+                    </tr>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3>Total</h3></td>
+                        <td class="text-right"><h3><strong>₱{{basket.totalPrice}}</strong></h3></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

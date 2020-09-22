@@ -1,0 +1,170 @@
+package com.gofluent.shoppingbasket.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Item;
+import com.gofluent.shoppingbasket.repository.BasketRepository;
+import com.gofluent.shoppingbasket.repository.ItemRepository;
+import com.gofluent.shoppingbasket.service.BasketService;
+
+@Service
+public class BasketServiceImpl implements BasketService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BasketServiceImpl.class);
+
+	@Autowired
+	private BasketRepository basketRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
+	
+//	@Autowired
+//	private CustomerRepository customerRepository;
+
+	@Override
+	public List<Item> getItems() {
+		ArrayList<Item> items = (ArrayList<Item>) itemRepository.findAll();
+		return items;
+	}
+
+	@Override
+	public Item getItem(Long id) {
+		Item item = itemRepository.getOne(id);
+		return item;
+	}
+
+	@Override
+	public void saveItems(ArrayList<Item> items) {
+		itemRepository.saveAll(items);
+	}
+
+	@Override
+	public Basket getBasket(Long id) {
+		logger.info("Basket ID2: {}", id);
+		Basket basket = basketRepository.getOne(id);
+		logger.info("Basket: {}", basket.toString());
+		return basket;
+	}
+
+	@Override
+	public void saveBasket(Basket basket) {
+		
+		basketRepository.save(basket);
+		
+	}
+
+	@Override
+	public Basket addBasketItem(Long basketId, Item item) {
+		
+		Basket basket = basketRepository.getOne(basketId);
+		if(basket != null) {
+			List<Item> items = basket.getItems();
+			items.add(item);
+			basket.setItems(items);
+			
+			basket.setTotalPrice(basket.getTotalPrice() + item.getItemPrice());
+			
+			logger.info("Basket Update: {}", basket.toString());
+			
+			return basketRepository.save(basket);
+		}else {
+			logger.info("Basket {} not Found", basketId);
+		}
+	
+		return null;
+	}
+	
+	@Override
+	public Basket removeBasketItem(Basket basket) {
+		Double totalPrice = 0.0;
+		for (Item i : basket.getItems()) {
+			totalPrice += i.getItemPrice();
+		}
+		
+		basket.setTotalPrice(totalPrice);		
+
+		return basketRepository.save(basket);
+	}
+
+	@Override
+	public void updateBasket(Basket basket) {
+		Basket oldBasket = basketRepository.getOne(basket.getId());
+		if(oldBasket != null) {
+			oldBasket.setItems(basket.getItems());
+			
+			logger.info("Basket Update: {}", basket.toString());
+			
+			basketRepository.save(basket);
+		}else {
+			logger.info("Basket {} not Found", basket.getId());
+		}
+		
+	}
+
+	@Override
+	public int sample(int[] x, int a, int b, int i, int j) {
+		int k = j;
+		int ct = 0;
+		
+		System.out.println("k: " + k);
+		while (k > i-1) {
+			
+			System.out.println("A:" + x[k] +" <= " + b + " : " + (x[k] <= b ));
+			System.out.println("b:!" + x[k] +" <= " + a + " : " + !(x[k] <= a ));
+			if(x[k] <= b && !(x[k] <= a)) {
+				System.out.println("Continue");
+				ct = ct + 1;
+			}
+			k = k - 1;
+		}
+		
+		return ct;
+		
+	}
+	
+
+
+	@Override
+	public String h(int n, String str) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int pow(int x, int y) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
+	
+	public String g(String str) {
+		int  i = 0;
+		String new_str = "";
+		while (i < str.length() - 1) {
+			new_str = new_str + str.indexOf(i + 1);
+			i = i + 1;
+		}
+		
+		return new_str;
+	}
+	
+	public String f(String str) {
+		if (str.length() == 0) {
+			return "";
+		}else if (str.length() == 1) {
+			return str;
+		}else {
+			return f(g(str)) + str.indexOf(0);
+		}
+	}
+	
+	
+
+}

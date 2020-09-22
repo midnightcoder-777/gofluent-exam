@@ -1,0 +1,5 @@
+package com.gofluent.shoppingbasket.repository;
+
+public interface BasketRepository extends JpaRepository<, Long> {
+
+}

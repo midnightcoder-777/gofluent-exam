@@ -1,0 +1,31 @@
+package com.gofluent.shoppingbasket.models;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name="ITEM")
+public class Item {
+	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
+    
+    @Column(name = "ITEM_NAME")
+    private String itemName;
+    
+    @Column(name = "ITEM_DESCRIPTION")
+    private String itemDescription;
+    
+    @Column(name = "ITEM_PRICE")
+    private Double itemPrice;
+
+}

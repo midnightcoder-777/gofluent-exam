@@ -1,0 +1,11 @@
+package com.gofluent.shoppingbasket.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Customer;
+
+public interface CustomerRepository extends JpaRepository<Customer, Long> {
+
+	
+}

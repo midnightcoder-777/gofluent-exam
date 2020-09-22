@@ -1,0 +1,97 @@
+package com.gofluent.shoppingbasket.service;
+
+import java.util.ArrayList;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Customer;
+import com.gofluent.shoppingbasket.models.Item;
+import com.gofluent.shoppingbasket.repository.BasketRepository;
+import com.gofluent.shoppingbasket.repository.CustomerRepository;
+import com.gofluent.shoppingbasket.repository.ItemRepository;
+import com.gofluent.shoppingbasket.service.BasketService;
+
+@Service
+public class BasketService2 implements BasketService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BasketService2.class);
+
+	@Autowired
+	private static BasketRepository basketRepository;
+	
+	@Autowired
+	private static ItemRepository itemRepository;
+	
+	@Autowired
+	private static CustomerRepository customerRepository;
+
+	@Override
+	public ArrayList<Item> getItems() {
+		ArrayList<Item> items = (ArrayList<Item>) itemRepository.findAll();
+		return items;
+	}
+
+	@Override
+	public Item getItem(Long id) {
+		Item item = itemRepository.getOne(id);
+		return item;
+	}
+
+	@Override
+	public void saveItem(Item item) {
+		itemRepository.save(item);
+	}
+
+	@Override
+	public void editItem(Item item) {
+		itemRepository.save(item);
+	}
+
+	@Override
+	public void deleteItem(Item item) {
+		itemRepository.delete(item);
+	}
+
+	@Override
+	public Basket getBasket(Long id) {
+		Basket basket = basketRepository.getOne(id);
+		return basket;
+	}
+
+	@Override
+	public void saveBasket(Basket basket) {
+		basketRepository.save(basket);
+	}
+
+	@Override
+	public void updateBasket(Long basketId, Item item) {
+		
+		
+		Basket basket = basketRepository.getOne(basketId);
+		basket.getItems().add(item);
+		
+		
+	}
+
+	@Override
+	public Customer getCustomer(Long id) {
+		Customer customer = customerRepository.getOne(id);
+		return customer;
+	}
+
+	@Override
+	public void saveCustomer(Customer customer) {
+		logger.info(customer.getCustomerName());
+		customerRepository.save(customer);
+	}
+
+	@Override
+	public void editCustomer(Customer customer) {
+		customerRepository.save(customer);
+	}
+	
+}

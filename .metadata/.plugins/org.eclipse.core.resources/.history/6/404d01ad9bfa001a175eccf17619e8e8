@@ -1,0 +1,117 @@
+package com.gofluent.shoppingbasket.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Item;
+import com.gofluent.shoppingbasket.repository.BasketRepository;
+import com.gofluent.shoppingbasket.repository.ItemRepository;
+import com.gofluent.shoppingbasket.service.BasketService;
+
+@Service
+public class BasketServiceImpl implements BasketService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BasketServiceImpl.class);
+
+	@Autowired
+	private BasketRepository basketRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
+	
+//	@Autowired
+//	private CustomerRepository customerRepository;
+
+	@Override
+	public List<Item> getItems() {
+		ArrayList<Item> items = (ArrayList<Item>) itemRepository.findAll();
+		return items;
+	}
+
+	@Override
+	public Item getItem(Long id) {
+		Item item = itemRepository.getOne(id);
+		return item;
+	}
+
+	@Override
+	public void saveItems(ArrayList<Item> items) {
+		itemRepository.saveAll(items);
+	}
+
+	@Override
+	public Basket getBasket(Long id) {
+		logger.info("Basket ID2: {}", id);
+		Basket basket = basketRepository.getOne(id);
+		logger.info("Basket: {}", basket.toString());
+		return basket;
+	}
+
+	@Override
+	public void saveBasket(Basket basket) {
+		basketRepository.save(basket);
+	}
+
+	@Override
+	public Basket addBasketItem(Long basketId, Item item) {
+		
+		Basket basket = basketRepository.getOne(basketId);
+		if(basket != null) {
+			List<Item> items = basket.getItems();
+			items.add(item);
+			basket.setItems(items);
+			
+			logger.info("Basket Update: {}", basket.toString());
+			
+			return basketRepository.save(basket);
+		}else {
+			logger.info("Basket {} not Found", basketId);
+		}
+	
+		return null;
+	}
+	
+	@Override
+	public Basket removeBasketItem(Basket basket) {
+
+//		return basketRepository.save(basket);
+		
+		Basket oldBasket = basketRepository.getOne(basket.getId());
+		if(basket != null) {
+			List<Item> items = basket.getItems();
+			
+			oldBasket.setItems(basket.getItems());
+			
+			logger.info("Basket Update: {}", basket.toString());
+			
+			return basketRepository.save(basket);
+		}else {
+			logger.info("Basket {} not Found", basketId);
+		}
+	
+		return null;
+		
+	}
+
+	@Override
+	public void updateBasket(Basket basket) {
+		Basket oldBasket = basketRepository.getOne(basket.getId());
+		if(oldBasket != null) {
+			oldBasket.setItems(basket.getItems());
+			
+			logger.info("Basket Update: {}", basket.toString());
+			
+			basketRepository.save(basket);
+		}else {
+			logger.info("Basket {} not Found", basket.getId());
+		}
+		
+	}
+
+}

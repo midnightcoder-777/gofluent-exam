@@ -1,0 +1,49 @@
+body {
+	margin-top: 20px;
+}
+
+/*global section starts here*/
+
+body{
+    background-color: #2b2e32;
+  }
+
+/*global section ends here*/
+
+
+/*header section starts here*/
+
+.header{
+    background-color: #2b2e32;
+    border: 2px solid #1c1e22;
+}
+.collapse ul li{
+    width: 70px;
+    margin: 0 5px;
+}
+.nav-item a{
+    background-color: #1c1e22;
+}
+.nav-item .ac{
+    background-color: black;
+}
+.a{
+    color: white;
+    margin-top: 15px;
+}
+.nav-item a:hover{
+    background-color: black;
+}
+.ab{
+    color: #bab5b5;
+    margin-top: 15px;
+}
+.navbar{
+    margin: 0;
+    padding: 0;
+}
+.navbar-brand:hover p{
+    color: white;
+}
+
+/*header section ends here*/

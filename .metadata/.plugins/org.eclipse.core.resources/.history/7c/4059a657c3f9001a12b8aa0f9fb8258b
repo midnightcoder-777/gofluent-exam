@@ -1,0 +1,5 @@
+package com.gofluent.shoppingbaskets.model;
+
+public class Basket {
+
+}

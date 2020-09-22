@@ -1,0 +1,42 @@
+package com.gofluent.shoppingbasket.service;
+
+import java.util.ArrayList;
+
+import org.springframework.stereotype.Service;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Customer;
+import com.gofluent.shoppingbasket.models.Item;
+
+@Service
+public interface BasketService {
+
+	//Item Service
+	public ArrayList<Item> getItems();
+	
+	public Item getItem(Long id);
+	
+	public void saveItems(ArrayList<Item> items);
+	
+	public void editItem(Item item);
+	
+	public void deleteItem(Item item);
+	
+	//Basket Service	
+	public Basket getBasket(Long id);
+	
+	public void saveBasket(Basket basket);
+	
+	public void addBasketItem(Long basketId, Item item);
+	
+	public void removeBasketItem(Long basketId, Item item);
+	
+	//Customer Service	
+	public Customer getCustomer(Long id);
+	
+	public void saveCustomer(Customer customer);
+	
+	public void editCustomer(Customer customer);
+
+}
+

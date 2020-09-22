@@ -1,0 +1,64 @@
+package com.gofluent.shoppingbasket.models;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "BASKET")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"}) 
+public class Basket {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ID")
+	private Long id;
+
+	@Column(name = "TOTAL_PRICE")
+	private double totalPrice;
+
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Item> items = new ArrayList();
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public double getTotalPrice() {
+		for (Item item : items) {
+			this.totalPrice += item.getItemPrice();
+		}
+		return this.totalPrice;
+	}
+
+	public Set<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<Item> items) {
+		this.items = items;
+	}
+
+	@Override
+	public String toString() {
+		return "Basket [id=" + id + ", totalPrice=" + totalPrice + ", items=" + items + "]";
+	}
+	
+	
+}

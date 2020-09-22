@@ -1,0 +1,37 @@
+package com.gofluent.shoppingbasket.service;
+
+import java.util.ArrayList;
+
+import com.gofluent.shoppingbasket.models.Basket;
+import com.gofluent.shoppingbasket.models.Customer;
+import com.gofluent.shoppingbasket.models.Item;
+
+public interface BasketService {
+
+	//Item Service
+	public List<Item> getItems();
+	
+	public Item getItem();
+	
+	public void saveItem();
+	
+	public void editItem();
+	
+	public void deleteItem();
+	
+	//Basket Service	
+	public Basket getBasket();
+	
+	public void saveBasket();
+	
+	public void editBasket();
+	
+	//Customer Service	
+	public Customer getCustomer();
+	
+	public void saveCustomer();
+	
+	public void editCustomer();
+
+}
+

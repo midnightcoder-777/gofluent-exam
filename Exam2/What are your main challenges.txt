@@ -1,0 +1,4 @@
+The main challenge of creating an ATM software is security I didn't put it on the design flow cause I want it to become simple as possible.
+but security is big challenges for an ATM software you have to make sure that everything that goes in and out and secure and verified
+the other challenges that we have to face are the communication to other banks, we want our ATM convenient and available as possible so that we have to
+some banks have diff implementation so that we have to cater to everyone one them.
